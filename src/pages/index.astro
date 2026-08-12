@@ -1,0 +1,381 @@
+---
+/**
+ * Demo: cerrajería de emergencia. Negocio FICTICIO.
+ *
+ * Ángulo: urgencia real, de noche, con el carro cerrado o la casa sin llave.
+ * Por eso la cobertura va primero (no los servicios): lo que decide si escriben
+ * es "me cubren a esta hora, en mi zona" antes que el catálogo de trabajos.
+ */
+import Base from '../layouts/Base.astro';
+
+const brand = 'Llave Fina';
+// Numero REAL de negocio de Bryam (8775 0508) con mensaje preescrito: el demo
+// es de un negocio ficticio, asi que el texto ya puesto le explica al que escribe
+// de donde viene y a Bryam de que rubro era el interesado.
+const whatsapp = 'https://wa.me/50687750508?text=Hola%20Bryam%2C%20vi%20la%20p%C3%A1gina%20de%20ejemplo%20de%20la%20cerrajer%C3%ADa.%20Quiero%20una%20as%C3%AD%20para%20mi%20negocio.';
+
+const cobertura = [
+  {
+    zona: 'San José centro',
+    desc: 'Catedral, Barrio Amón, La Sabana y alrededores.',
+    eta: '15 a 20 min',
+  },
+  {
+    zona: 'Escazú y Santa Ana',
+    desc: 'San Rafael, Trejos Montealegre y los residenciales cercanos.',
+    eta: '20 a 25 min',
+  },
+  {
+    zona: 'Curridabat y Zapote',
+    desc: 'Desde Tirrases hasta el cruce con Guadalupe.',
+    eta: '15 a 20 min',
+  },
+  {
+    zona: 'Heredia centro',
+    desc: 'Centro, Mercedes Norte y Ulloa.',
+    eta: '25 a 30 min',
+  },
+  {
+    zona: 'Alajuela centro',
+    desc: 'Centro y los barrios cercanos a la Ciudad Judicial.',
+    eta: '30 a 35 min',
+  },
+];
+
+const servicios = [
+  {
+    nombre: 'Apertura de vehículos',
+    desc: 'Carros y motos, sin dañar la chapa ni el vidrio.',
+    meta: 'Todas las marcas',
+  },
+  {
+    nombre: 'Cambio de cilindros',
+    desc: 'Cuando la llave se rompe adentro o la cerradura ya no gira.',
+    meta: 'Mismo día',
+  },
+  {
+    nombre: 'Copias de llave',
+    desc: 'Duplicado de llaves normales, hecho en el sitio.',
+    meta: 'Al instante',
+  },
+  {
+    nombre: 'Llaves con chip',
+    desc: 'Programación de llaves con chip para los modelos que lo permiten.',
+    meta: 'Según el modelo',
+  },
+  {
+    nombre: 'Cerraduras de seguridad',
+    desc: 'Instalación y cambio de cerraduras de mayor resistencia.',
+    meta: 'Para casa y negocio',
+  },
+];
+
+const mientrasEspera = [
+  'Aléjese de la vía si el problema es con el carro, la seguridad primero.',
+  'Confirme la dirección exacta o compártanos la ubicación por WhatsApp.',
+  'No intente forzar la cerradura, un cerrajero certificado no daña el mecanismo.',
+];
+
+const datosWhatsapp = [
+  'Ubicación exacta o enlace de Waze o Google Maps.',
+  'Tipo de emergencia: carro, casa o negocio.',
+  'Marca del vehículo o tipo de cerradura, si la conoce.',
+  'Un número de contacto para coordinar la llegada.',
+];
+---
+
+<Base
+  brand={brand}
+  whatsapp={whatsapp}
+  title="Llave Fina — Cerrajería de emergencia 24 horas"
+  description="Cerrajería de emergencia en el Gran Área Metropolitana. Apertura de vehículos, cambio de cilindros y llaves con chip, las 24 horas."
+>
+  <!-- HERO. Cero overlay: el titular cae en la mitad oscura del asset. -->
+  <section class="hero">
+    <div class="hero-media">
+      <img
+        src="/hero.webp"
+        alt="Manos de un cerrajero destrabando una cerradura de puerta de noche, con linterna"
+        fetchpriority="high"
+        decoding="async"
+        width="1376"
+        height="768"
+        data-parallax
+      />
+    </div>
+
+    <div class="wrap hero-content">
+      <p class="hero-status reveal">
+        <span class="status-dot" aria-hidden="true"></span>
+        Atendiendo en este momento
+      </p>
+      <h1 class="display">
+        <span class="serif reveal" data-delay="1">Se quedó afuera,</span>
+        <span class="sans reveal" data-delay="2">LO ABRIMOS YA</span>
+      </h1>
+      <p class="lead reveal" data-delay="3">
+        Atendemos emergencias las 24 horas, los 365 días del año. Carro cerrado, casa sin
+        llave o cerradura trabada, escríbanos y coordinamos la salida del técnico de una vez.
+      </p>
+      <div class="hero-actions reveal" data-delay="4">
+        <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener">
+          Escribir emergencia ahora
+        </a>
+        <a class="btn btn-ghost" href="#cobertura">Ver zonas de cobertura</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COBERTURA: primer bloque tras el héroe. Lo que decide si escriben es la
+       zona y la hora, no el catálogo de servicios. -->
+  <section class="section" id="cobertura">
+    <div class="wrap">
+      <p class="eyebrow reveal">Cobertura 24 horas</p>
+      <h2 class="section-title reveal" data-delay="1">Dónde llegamos y en cuánto tiempo</h2>
+      <p class="lead reveal" data-delay="2">
+        Cubrimos el Gran Área Metropolitana con un técnico de guardia en cada zona. El tiempo
+        de llegada es un estimado y puede variar según el tráfico o el clima.
+      </p>
+
+      <div class="editorial">
+        {
+          cobertura.map((c, i) => (
+            <div class="editorial-row reveal" data-delay={String(Math.min(i + 1, 4))}>
+              <h3 class="editorial-name">{c.zona}</h3>
+              <p class="editorial-desc">{c.desc}</p>
+              <span class="editorial-meta">{c.eta}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS: lista editorial, hairlines, cero tarjetas. -->
+  <section class="section" id="servicios">
+    <div class="wrap">
+      <p class="eyebrow reveal">Servicios</p>
+      <h2 class="section-title reveal" data-delay="1">Lo que resolvemos, ahora mismo</h2>
+      <p class="lead reveal" data-delay="2">
+        Trabajamos en el sitio, con las herramientas para abrir sin dañar la cerradura ni la
+        puerta. Si el trabajo requiere taller, se lo decimos antes de empezar.
+      </p>
+
+      <div class="editorial">
+        {
+          servicios.map((s, i) => (
+            <div class="editorial-row reveal" data-delay={String(Math.min(i + 1, 4))}>
+              <h3 class="editorial-name">{s.nombre}</h3>
+              <p class="editorial-desc">{s.desc}</p>
+              <span class="editorial-meta">{s.meta}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- EMERGENCIA: qué hacer mientras llega el técnico y qué mandar por WhatsApp.
+       Dos listas simples, sin tarjetas ni numeración en acento. -->
+  <section class="section emergencia" id="emergencia">
+    <div class="wrap">
+      <p class="eyebrow reveal">Mientras llega el cerrajero</p>
+      <h2 class="section-title reveal" data-delay="1">Qué hacer mientras llega</h2>
+      <p class="lead reveal" data-delay="2">
+        Estos pasos ayudan a que el técnico llegue más rápido y resuelva sin contratiempos.
+      </p>
+
+      <div class="emergencia-grid">
+        <div class="mini-block reveal" data-delay="2">
+          <h3 class="mini-title">Mientras espera</h3>
+          <ol class="mini-list">
+            {mientrasEspera.map((item) => <li>{item}</li>)}
+          </ol>
+        </div>
+
+        <div class="mini-block reveal" data-delay="3">
+          <h3 class="mini-title">Qué mandar por WhatsApp</h3>
+          <ul class="mini-list">
+            {datosWhatsapp.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIANZA: identificación del técnico y factura. Sin prometer nada que
+       no se cumpla. -->
+  <section class="section" id="confianza">
+    <div class="wrap confianza-grid">
+      <div class="reveal">
+        <p class="eyebrow">Confianza</p>
+        <h2 class="section-title">Quién llega a su puerta</h2>
+        <p class="lead">
+          El técnico se identifica al llegar y le entrega factura por el trabajo realizado.
+          Así usted sabe con quién trata y qué pagó.
+        </p>
+        <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener">
+          Escribir por WhatsApp
+        </a>
+      </div>
+
+      <dl class="datos reveal" data-delay="2">
+        <div>
+          <dt>Emergencias</dt>
+          <dd>Las 24 horas, los 7 días</dd>
+        </div>
+        <div>
+          <dt>Taller</dt>
+          <dd>Lunes a sábado, 8:00 a. m. a 6:00 p. m.</dd>
+        </div>
+        <div>
+          <dt>Identificación</dt>
+          <dd>El técnico se presenta con carné antes de trabajar</dd>
+        </div>
+        <div>
+          <dt>Pago</dt>
+          <dd>Efectivo, Sinpe Móvil y tarjeta</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ─── Hero ─────────────────────────────────────────────────────────────── */
+  /* 100dvh, no 100vh: el chrome móvil recorta la sección con vh. */
+  .hero {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    align-items: flex-start;
+    padding-top: clamp(6.5rem, 16vh, 10rem);
+    padding-bottom: clamp(3rem, 10vh, 6rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    transform: scale(1.06);
+    will-change: transform;
+  }
+
+  /* Única concesión de degradado: NO es un scrim sobre el titular (el asset ya
+     es oscuro arriba), es la disolución del asset hacia el color de página en el
+     borde inferior, para que la sección siguiente no entre con un corte seco. */
+  .hero-media::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 38%;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+  }
+
+  .hero-content {
+    position: relative;
+  }
+
+  /* El único detalle deliberado en acento fuera del CTA: el punto de estado. */
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0 0 1.1rem;
+    padding: 0.4rem 0.85rem 0.4rem 0.65rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--text-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  .status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  /* ─── Emergencia ───────────────────────────────────────────────────────── */
+  .emergencia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: clamp(2rem, 5vw, 3.5rem);
+    margin-top: clamp(2rem, 5vw, 3rem);
+  }
+
+  .mini-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 0 0 0.75rem;
+  }
+
+  .mini-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .mini-list li {
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.98rem;
+  }
+
+  /* ─── Confianza ────────────────────────────────────────────────────────── */
+  .confianza-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .datos {
+    margin: 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .datos > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    justify-content: space-between;
+    padding-block: 1.05rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .datos dt {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  .datos dd {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.98rem;
+    text-align: right;
+  }
+</style>
