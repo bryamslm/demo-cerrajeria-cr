@@ -111,7 +111,7 @@ const datosWhatsapp = [
       </p>
       <h1 class="display">
         <span class="serif reveal" data-delay="1">Se quedó afuera,</span>
-        <span class="sans reveal" data-delay="2">LO ABRIMOS YA</span>
+        <span class="sans reveal" data-delay="2">Lo abrimos <em>ya</em></span>
       </h1>
       <p class="lead reveal" data-delay="3">
         Atendemos emergencias las 24 horas, los 365 días del año. Carro cerrado, casa sin
@@ -141,6 +141,7 @@ const datosWhatsapp = [
         {
           cobertura.map((c, i) => (
             <div class="editorial-row reveal" data-delay={String(Math.min(i + 1, 4))}>
+              <span class="editorial-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <h3 class="editorial-name">{c.zona}</h3>
               <p class="editorial-desc">{c.desc}</p>
               <span class="editorial-meta">{c.eta}</span>
@@ -165,6 +166,7 @@ const datosWhatsapp = [
         {
           servicios.map((s, i) => (
             <div class="editorial-row reveal" data-delay={String(Math.min(i + 1, 4))}>
+              <span class="editorial-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <h3 class="editorial-name">{s.nombre}</h3>
               <p class="editorial-desc">{s.desc}</p>
               <span class="editorial-meta">{s.meta}</span>
@@ -279,6 +281,29 @@ const datosWhatsapp = [
     inset: auto 0 0 0;
     height: 38%;
     background: linear-gradient(to bottom, transparent, var(--bg));
+  }
+
+  /* En el teléfono la foto apaisada recortada al centro deja el titular sobre la
+     zona oscura y el héroe se ve negro: el asset se desperdicia. Abajo de 780 px
+     la foto deja de ser fondo, ocupa la mitad de arriba y el titular va debajo,
+     sobre negro sólido. */
+  @media (max-width: 780px) {
+    .hero {
+      min-height: auto;
+      padding-top: calc(50vh + 0.75rem);
+      padding-bottom: 2.5rem;
+    }
+    .hero-media {
+      inset: 0 0 auto 0;
+      height: 50vh;
+    }
+    .hero-media img {
+      object-position: 55% 45%;
+      transform: scale(1.02);
+    }
+    .hero-media::after {
+      height: 46%;
+    }
   }
 
   .hero-content {
